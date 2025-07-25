@@ -1,6 +1,7 @@
 
-window.addEventListener("load", function(){
     const question = document.getElementById("question");
+    const button = document.getElementById("button");
+    const inputField = document.getElementById("number");
     const questionGroup = ["what is multiply 5 and 3",
     "what is multiply 4 and 5",
     "what is multiply 3 and 7",
@@ -9,20 +10,22 @@ window.addEventListener("load", function(){
     "what is multiply 7 and 4" ];
 
     // randomNumber()
-    const button = document.getElementById("button");
-    const inputField = document.getElementById("number");
-    const ranNum = Number(Math.floor(Math.random() * 6));
+    let ranNum = Math.floor(Math.random() * questionGroup.length);
     question.innerText = `${questionGroup[ranNum]}`;
     console.log(ranNum);
     console.log(`${questionGroup[ranNum]}`);
     let count = 0;
 
-        button.addEventListener("click", function(event){
-            const inputNumber = Number(inputField.value);
-            event.preventDefault();
-            document.getElementById("myForm").reset();
+    const answer = [15, 20, 21, 25, 18, 28]; // ✅ Define only once
+
+    button.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        const inputNumber = Number(inputField.value);
+        document.getElementById("myForm").reset();
+
+
             
-            const answer = [15, 20, 21, 25, 18, 28];
 
             if(ranNum === 0&& inputNumber === answer[0]){
                 count = count + 1;
@@ -47,8 +50,5 @@ window.addEventListener("load", function(){
                 console.log(`${ranNum} === 1 && ${inputNumber} === answer[1])`)
             }
             console.log(count);
-            const ranNum = Number(Math.floor(Math.random() * 6));
 
-        })
-
-});
+        });
