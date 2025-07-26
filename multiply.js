@@ -1,54 +1,50 @@
+const question = document.getElementById("question");
+const button = document.getElementById("myForm");
+const inputField = document.getElementById("number");
+let score = document.querySelector("main > p > span");
 
-    const question = document.getElementById("question");
-    const button = document.getElementById("button");
-    const inputField = document.getElementById("number");
-    const questionGroup = ["what is multiply 5 and 3",
+const questionGroup = [
+    "what is multiply 5 and 3",
     "what is multiply 4 and 5",
     "what is multiply 3 and 7",
     "what is multiply 5 and 5",
     "what is multiply 6 and 3",
-    "what is multiply 7 and 4" ];
+    "what is multiply 7 and 4"
+];
 
-    // randomNumber()
-    let ranNum = Math.floor(Math.random() * questionGroup.length);
+const answer = [15, 20, 21, 25, 18, 28];
+
+let count = 0;
+let ranNum = 0; // ✅ Define globally
+
+function randomSelect() {
+    ranNum = Math.floor(Math.random() * questionGroup.length); // ✅ Set global variable
     question.innerText = `${questionGroup[ranNum]}`;
-    console.log(ranNum);
-    console.log(`${questionGroup[ranNum]}`);
-    let count = 0;
+}
 
-    const answer = [15, 20, 21, 25, 18, 28]; // ✅ Define only once
+randomSelect();
 
-    button.addEventListener("click", function(event) {
-        event.preventDefault();
+button.addEventListener("submit", function(event) {
+    event.preventDefault();
 
-        const inputNumber = Number(inputField.value);
-        document.getElementById("myForm").reset();
+    const inputValue = inputField.value;
+    const inputNumber = Number(inputValue);
 
+    if(inputValue.trim().length === 0){
+        alert("You need to answer the question");
+    }
 
-            
+    // Check answer
+    if (inputNumber === answer[ranNum]) {
+        count += 1;
+    } else {
+        count -= 1;
+    }
 
-            if(ranNum === 0&& inputNumber === answer[0]){
-                count = count + 1;
-            }
-            else if(ranNum === 1 && inputNumber === answer[1]){
-                count = count + 1;
-            }
-            else if(ranNum === 2 && inputNumber === answer[2]){
-                count = count + 1;
-            }
-            else if(ranNum === 3 && inputNumber === answer[3]){
-                count = count + 1;
-            }
-            else if(ranNum === 4 && inputNumber === answer[4]){
-                count = count + 1;
-            }
-            else if(ranNum === 5 && inputNumber === answer[5]){
-                count = count + 1;
-            }
-            else{
-                count = count - 1;
-                console.log(`${ranNum} === 1 && ${inputNumber} === answer[1])`)
-            }
-            console.log(count);
+    console.log("Score:", count);
+    score.innerText = `${count}`;
 
-        });
+    // Reset form and ask new question
+    document.getElementById("myForm").reset();
+    randomSelect();
+});
